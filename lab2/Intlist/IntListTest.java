@@ -1,5 +1,4 @@
-import static org.junit.Assert.*;
-
+import org.junit.Assert;
 import org.junit.Test;
 
 public class IntListTest {
@@ -17,14 +16,14 @@ public class IntListTest {
         IntList threeTwoOne = new IntList(3, twoOne);
 
         IntList x = IntList.of(3, 2, 1);
-        assertEquals(threeTwoOne, x);
+        Assert.assertEquals(threeTwoOne, x);
     }
 
     @Test
     public void testdSquareList() {
         IntList L = IntList.of(1, 2, 3);
         IntList.dSquareList(L);
-        assertEquals(IntList.of(1, 4, 9), L);
+        Assert.assertEquals(IntList.of(1, 4, 9), L);
     }
 
     /**
@@ -44,8 +43,8 @@ public class IntListTest {
     public void testSquareListRecursive() {
         IntList L = IntList.of(1, 2, 3);
         IntList res = IntList.squareListRecursive(L);
-        assertEquals(IntList.of(1, 2, 3), L);
-        assertEquals(IntList.of(1, 4, 9), res);
+        Assert.assertEquals(IntList.of(1, 2, 3), L);
+        Assert.assertEquals(IntList.of(1, 4, 9), res);
     }
 
     @Test
@@ -53,8 +52,8 @@ public class IntListTest {
         IntList A = IntList.of(1, 2, 3);
         IntList B = IntList.of(4, 5, 6);
         IntList exp = IntList.of(1, 2, 3, 4, 5, 6);
-        assertEquals(exp, IntList.dcatenate(A, B));
-        assertEquals(IntList.of(1, 2, 3, 4, 5, 6), A);
+        Assert.assertEquals(exp, IntList.dcatenate(A, B));
+        Assert.assertEquals(IntList.of(1, 2, 3, 4, 5, 6), A);
     }
 
     @Test
@@ -62,8 +61,8 @@ public class IntListTest {
         IntList A = IntList.of(1, 2, 3);
         IntList B = IntList.of(4, 5, 6);
         IntList exp = IntList.of(1, 2, 3, 4, 5, 6);
-        assertEquals(exp, IntList.catenate(A, B));
-        assertEquals(IntList.of(1, 2, 3), A);
+        Assert.assertEquals(exp, IntList.catenate(A, B));
+        Assert.assertEquals(IntList.of(1, 2, 3), A);
     }
 
 }
