@@ -91,9 +91,8 @@ public class LinkedListDequeTest {
 		Z.addFirst(1);
 		Z.addFirst(2);
 		Z.addFirst(3);
-		Z.addFirst(4);
-		Z.addLast(0);
-		Z.removeLast();
+		int k = Z.getRecursive(2);
+		System.out.println(k);
 		Z.printDeque();
 	}
 } 

@@ -1,6 +1,6 @@
 public class LinkedListDeque<Type> {
     private int size;
-    private Node sentinel;
+    private final Node sentinel;
 
     //Initialize an empty LLDeque
     public LinkedListDeque() {
@@ -98,5 +98,4 @@ public class LinkedListDeque<Type> {
 
         }
     }
-
 }
