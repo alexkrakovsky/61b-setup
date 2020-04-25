@@ -1,6 +1,6 @@
 public class LinkedListDeque<Type> {
     private int size;
-    private final Node sentinel;
+    private Node sentinel;
 
     //Initialize an empty LLDeque
     public LinkedListDeque() {
@@ -22,16 +22,15 @@ public class LinkedListDeque<Type> {
 
     //Add an item to the beginning of the LLD
     public void addFirst(Type item) {
-        sentinel.next = new Node(item, sentinel, sentinel.next);
-        if (size == 0) {
-            sentinel.prev = sentinel.next;
-        }
+        sentinel.next.prev = new Node(item, sentinel, sentinel.next);
+        sentinel.next = sentinel.next.prev;
         size += 1;
     }
 
     //Add an item to the end of the LLD
     public void addLast(Type item) {
-        sentinel.prev = new Node(item, sentinel.prev, sentinel);
+        sentinel.prev.next = new Node(item, sentinel.prev.next, sentinel);
+        sentinel.prev = sentinel.prev.next;
         size += 1;
     }
 
@@ -63,6 +62,20 @@ public class LinkedListDeque<Type> {
         return A.item;
     }
 
+    //Recursively obtain the item at a specified index
+    public Type getRecursive(int index) {
+        if (index >= size) {
+            return null;
+        }
+        if (index == 0) {
+            return sentinel.next.item;
+        }
+        Type B = removeFirst();
+        Type C = getRecursive(index - 1);
+        addFirst(B);
+        return C;
+    }
+
     //Print the items in this LLD
     public void printDeque() {
         Node A = sentinel;
@@ -72,19 +85,18 @@ public class LinkedListDeque<Type> {
         }
     }
 
-    //Recursively obtain the item at a specified index
-
     //Nested class Node
     public class Node {
-        public Node prev;
         public Type item;
+        public Node prev;
         public Node next;
 
         public Node(Type value, Node before, Node after) {
             item = value;
-            next = after;
             prev = before;
+            next = after;
 
         }
     }
+
 }
