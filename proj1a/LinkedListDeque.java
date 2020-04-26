@@ -12,7 +12,7 @@ public class LinkedListDeque<Type> {
 
     //Return whether or not this LLDeque is empty
     public boolean isEmpty() {
-        return this.size == 0;
+        return (this.size == 0);
     }
 
     //Return the size
@@ -29,7 +29,7 @@ public class LinkedListDeque<Type> {
 
     //Add an item to the end of the LLD
     public void addLast(Type item) {
-        sentinel.prev.next = new Node(item, sentinel.prev.next, sentinel);
+        sentinel.prev.next = new Node(item, sentinel.prev, sentinel);
         sentinel.prev = sentinel.prev.next;
         size += 1;
     }
@@ -64,7 +64,7 @@ public class LinkedListDeque<Type> {
             return null;
         }
         Node A = sentinel;
-        for (int i = 0; i < index; i += 1) {
+        for (int i = 0; i <= index; i += 1) {
             A = A.next;
         }
         return A.item;
@@ -106,4 +106,5 @@ public class LinkedListDeque<Type> {
 
         }
     }
+
 }
