@@ -28,18 +28,30 @@ public class ArrayDeque<Type> {
     //Prints the contents of an AList
     public void printDeque() {
         for (int i = 0; i < size; i++) {
-            System.out.print(items[trueIndex(i)] + " ");
+            System.out.print(this.get(i) + " ");
         }
     }
 
-    //Company items to a larger underlying array
-    public void resize(int r) {
-
+    //Copy items to a larger/smaller underlying array
+    private void resize(int capacity) {
+        Type[] changed = (Type[]) new Object[capacity];
+        if (plusOne(nextFirst) < minusOne(nextLast)) {
+                System.arraycopy(items, plusOne(nextFirst), changed, capacity - size, size);
+        }
+        else {
+            System.arraycopy(items, plusOne(nextFirst), changed, capacity - size, size - nextLast);
+            System.arraycopy(items, 0, changed, capacity - nextLast, nextLast);
+        }
+        nextFirst = capacity - size - 1;
+        items = changed;
+        nextLast = 0;
     }
-
 
     //Adds item to the beginning of the list
     public void addFirst(Type item) {
+        if (size == items.length) {
+            resize(items.length * 2);
+        }
         items[nextFirst] = item;
         size += 1;
         nextFirst = minusOne(nextFirst);
@@ -47,6 +59,9 @@ public class ArrayDeque<Type> {
 
     //Adds item to the end of the list
     public void addLast(Type item) {
+        if (size == items.length) {
+            resize(items.length * 2);
+        }
         items[nextLast] = item;
         size += 1;
         nextLast = plusOne(nextLast);
@@ -68,9 +83,28 @@ public class ArrayDeque<Type> {
         return index - 1;
     }
 
-    //Returns and removes the first item in the ist
+    //Returns and removes the first item in the list
     public Type removeFirst() {
+        Type F = items[plusOne(nextFirst)];
+        if (size < (items.length / 4) && items.length >= 16) {
+            resize(items.length / 2);
+        }
+        size -= 1;
+        items[plusOne(nextFirst)] = null;
+        nextFirst = plusOne(nextFirst);
+        return F;
+    }
 
+    //Returns and removes the last item in the list
+    public Type removeLast() {
+        Type L = items[minusOne(nextLast)];
+        if (size < (items.length / 4) && items.length >= 16) {
+            resize(items.length / 2);
+        }
+        size -= 1;
+        items[minusOne(nextLast)] = null;
+        nextLast = minusOne(nextLast);
+        return L;
     }
 
     //Returns the true array-adjusted index
@@ -90,16 +124,5 @@ public class ArrayDeque<Type> {
         }
         return items[trueIndex(index)];
     }
-    /*public static void main(String[] args) {
-        ArrayDeque<Integer> A = new ArrayDeque<>();
-        A.addFirst(2);
-        A.addFirst(3);
-        A.addFirst(4);
-        A.addLast(5);
-        A.addLast(6);
-        A.addLast(7);
-        A.printDeque();
-    }*/
-
 
 }
