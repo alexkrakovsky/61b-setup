@@ -86,6 +86,9 @@ public class ArrayDeque<Type> {
     //Returns and removes the first item in the list
     public Type removeFirst() {
         Type F = items[plusOne(nextFirst)];
+        if (size == 0) {
+            return null;
+        }
         if (size < (items.length / 4) && items.length >= 16) {
             resize(items.length / 2);
         }
@@ -98,6 +101,9 @@ public class ArrayDeque<Type> {
     //Returns and removes the last item in the list
     public Type removeLast() {
         Type L = items[minusOne(nextLast)];
+        if (size == 0) {
+            return null;
+        }
         if (size < (items.length / 4) && items.length >= 16) {
             resize(items.length / 2);
         }

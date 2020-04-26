@@ -36,16 +36,24 @@ public class LinkedListDeque<Type> {
 
     //Remove and return the first item of the LLD
     public Type removeFirst() {
+        if (isEmpty()) {
+            return null;
+        }
         Type first = sentinel.next.item;
         sentinel.next = sentinel.next.next;
+        sentinel.next.prev = sentinel;
         size -= 1;
         return first;
     }
 
     //Remove and return the last item of the LLD
     public Type removeLast() {
+        if (isEmpty()) {
+            return null;
+        }
         Type last = sentinel.prev.item;
         sentinel.prev = sentinel.prev.prev;
+        sentinel.prev.next = sentinel;
         size -= 1;
         return last;
     }
@@ -87,9 +95,9 @@ public class LinkedListDeque<Type> {
 
     //Nested class Node
     public class Node {
-        public Type item;
-        public Node prev;
-        public Node next;
+        private Type item;
+        private Node prev;
+        private Node next;
 
         public Node(Type value, Node before, Node after) {
             item = value;
