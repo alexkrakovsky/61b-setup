@@ -30,6 +30,7 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
         } else {
             bufferArray[last] = x;
             last = plusOne(last);
+            fillCount += 1;
         }
     }
 
@@ -42,13 +43,19 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
             T item = bufferArray[first];
             bufferArray[first] = null;
             first = plusOne(first);
+            fillCount -= 1;
             return item;
         }
     }
 
     @Override
     public T peek() {
-        return bufferArray[first];
+        if (isEmpty()) {
+            throw new RuntimeException("Ring Buffer Undeflow");
+        }
+        else {
+            return bufferArray[first];
+        }
     }
 
     @Override
