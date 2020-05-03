@@ -12,6 +12,9 @@ public class GuitarString {
     /* Create a guitar string of the given frequency.  */
     public GuitarString(double frequency) {
         buffer = new ArrayRingBuffer<Double>((int) Math.round(SR / frequency));
+        while (!buffer.isFull()) {
+            buffer.enqueue(0.0);
+        }
         // TODO: Create a buffer with capacity = SR / frequency. You'll need to
         //       cast the result of this divsion operation into an int. For better
         //       accuracy, use the Math.round() function before casting.
@@ -39,7 +42,7 @@ public class GuitarString {
      */
     public void tic() {
         double f = buffer.dequeue();
-        double n = (f + buffer.peek()) / 2 * DECAY;
+        double n = (f + sample()) / 2 * DECAY;
         buffer.enqueue(n);
         // TODO: Dequeue the front sample and enqueue a new sample that is
         //       the average of the two multiplied by the DECAY factor.
