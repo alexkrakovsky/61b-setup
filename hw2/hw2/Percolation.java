@@ -64,22 +64,24 @@ public class Percolation {
     /* Opens a given site. */
     public void open(int row, int col) {
         checkArgs(row, col);
-        grid[row][col] = "Open";
-        numOpen += 1;
-        int k = xyTo1D(row, col);
-        for (int[] xy : touching(row, col)) {
-            try {
-                if (isOpen(xy[0], xy[1])) {
-                    wqu.union(k, xyTo1D(xy[0], xy[1]));
+        if (!isOpen(row, col)) {
+            grid[row][col] = "Open";
+            numOpen += 1;
+            int k = xyTo1D(row, col);
+            for (int[] xy : touching(row, col)) {
+                try {
+                    if (isOpen(xy[0], xy[1])) {
+                        wqu.union(k, xyTo1D(xy[0], xy[1]));
+                    }
+                } catch (Exception ignored) {
                 }
-            } catch (Exception ignored) {
             }
-        }
-        if (row == 0) {
-            wqu.union(k, source);
-        }
-        if (row == sideLength - 1) {
-            wqu.union(k, bottom);
+            if (row == 0) {
+                wqu.union(k, source);
+            }
+            if (row == sideLength - 1) {
+                wqu.union(k, bottom);
+            }
         }
     }
 

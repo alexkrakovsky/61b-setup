@@ -1,6 +1,5 @@
 package hw2;
 
-import java.lang.IllegalArgumentException;
 import edu.princeton.cs.introcs.StdRandom;
 import edu.princeton.cs.introcs.StdStats;
 
@@ -17,18 +16,12 @@ public class PercolationStats {
         results = new double[numTrials];
         for (int i = 0; i < T; i++) {
             Percolation p = pf.make(N);
-            int opens = 0;
             while (!p.percolates()) {
                 int a = StdRandom.uniform(N);
                 int b = StdRandom.uniform(N);
-                while (p.isOpen(a, b)) {
-                    a = StdRandom.uniform(N);
-                    b = StdRandom.uniform(N);
-                }
                 p.open(a, b);
-                opens += 1;
             }
-            results[i] = (double) opens / (N * N);
+            results[i] = (double) p.numberOfOpenSites() / (N * N);
         }
     }
 
