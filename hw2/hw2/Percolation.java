@@ -5,10 +5,10 @@ import java.lang.IndexOutOfBoundsException;
 import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 
 public class Percolation {
-    private String[][] grid;
+    private final String[][] grid;
     private int numOpen;
     private final int sideLength;
-    private WeightedQuickUnionUF wqu;
+    private final WeightedQuickUnionUF wqu;
     private final int source;
     private final int bottom;
 
