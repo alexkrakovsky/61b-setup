@@ -1,7 +1,6 @@
 N = 8
 rseed = 7
 
-MazeType = SINGLE_GAP
 %MazeType = POPEN_SOLVABLE
 %MazeType = BLANK
 
