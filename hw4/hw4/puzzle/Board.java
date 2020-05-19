@@ -5,7 +5,7 @@ import edu.princeton.cs.algs4.Queue;
 import java.util.Arrays;
 
 public class Board implements WorldState  {
-    private int size;
+    private final int size;
     private int[][] grid;
     private static final int BLANK = 0;
 
@@ -17,7 +17,6 @@ public class Board implements WorldState  {
                 grid[i][j] = tiles[i][j];
             }
         }
-        size = grid.length;
     }
 
     public int tileAt(int i, int j) {
@@ -68,13 +67,17 @@ public class Board implements WorldState  {
         int count = 0;
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-                if (grid[i][j] != xyTo1D(i, j)) {
-                    count += 1;
+                int curr = grid[i][j];
+                if (curr != 0) {
+                    if (curr != xyTo1D(i, j)) {
+                        count += 1;
+                    }
                 }
             }
         }
-        return count - 1;
+        return count;
     }
+
 
     public int manhattan() {
         int dist = 0;
@@ -99,7 +102,14 @@ public class Board implements WorldState  {
     @Override
     public boolean equals(Object o) {
         Board b = (Board) o;
-        return Arrays.equals(grid, b.grid);
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                if (grid[i][j] != b.grid[i][j]) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
 
