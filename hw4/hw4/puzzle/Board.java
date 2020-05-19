@@ -101,7 +101,14 @@ public class Board implements WorldState  {
 
     @Override
     public boolean equals(Object o) {
+        Class c = o.getClass();
+        if (!c.equals(this.getClass())) {
+            return false;
+        }
         Board b = (Board) o;
+        if (size != b.size) {
+            return false;
+        }
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 if (grid[i][j] != b.grid[i][j]) {
