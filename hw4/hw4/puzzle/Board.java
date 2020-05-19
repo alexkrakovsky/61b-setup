@@ -109,14 +109,7 @@ public class Board implements WorldState  {
         if (size != b.size) {
             return false;
         }
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
-                if (grid[i][j] != b.grid[i][j]) {
-                    return false;
-                }
-            }
-        }
-        return true;
+        return Arrays.deepEquals(grid, b.grid);
     }
 
 
