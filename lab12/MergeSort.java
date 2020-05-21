@@ -36,28 +36,13 @@ public class MergeSort {
     private static <Item extends Comparable> Queue<Queue<Item>>
             makeSingleItemQueues(Queue<Item> items) {
         Queue<Queue<Item>> queue2d = new Queue<>();
-        makeSingleHelper(queue2d, items);
+        for (Item i : items) {
+            Queue<Item> q = new Queue<>();
+            q.enqueue(i);
+            queue2d.enqueue(q);
+        }
         return queue2d;
     }
-
-    private static <Item extends Comparable> void
-            makeSingleHelper(Queue<Queue<Item>> queue2d, Queue<Item> items) {
-        if (items.isEmpty()) {
-            return;
-        }
-        if (items.size() == 1) {
-            queue2d.enqueue(items);
-        } else {
-            Queue<Item> left = new Queue<>();
-            for (int i = 0; i < items.size() / 2; i++) {
-                left.enqueue(items.dequeue());
-            }
-            Queue<Item> right = items;
-            makeSingleHelper(queue2d, left);
-            makeSingleHelper(queue2d, right);
-        }
-    }
-
 
 
     /**
@@ -110,6 +95,7 @@ public class MergeSort {
         numbers.enqueue(0);
         numbers.enqueue(8);
         Queue<Integer> sorted = mergeSort(numbers);
+        System.out.println(numbers);
         System.out.println(sorted);
     }
 }
