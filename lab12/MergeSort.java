@@ -1,4 +1,5 @@
 import edu.princeton.cs.algs4.Queue;
+import edu.princeton.cs.algs4.Quick;
 
 public class MergeSort {
     /**
@@ -34,9 +35,30 @@ public class MergeSort {
     /** Returns a queue of queues that each contain one item from items. */
     private static <Item extends Comparable> Queue<Queue<Item>>
             makeSingleItemQueues(Queue<Item> items) {
-        // Your code here!
-        return null;
+        Queue<Queue<Item>> queue2d = new Queue<>();
+        makeSingleHelper(queue2d, items);
+        return queue2d;
     }
+
+    private static <Item extends Comparable> void
+            makeSingleHelper(Queue<Queue<Item>> queue2d, Queue<Item> items) {
+        if (items.isEmpty()) {
+            return;
+        }
+        if (items.size() == 1) {
+            queue2d.enqueue(items);
+        } else {
+            Queue<Item> left = new Queue<>();
+            for (int i = 0; i < items.size() / 2; i++) {
+                left.enqueue(items.dequeue());
+            }
+            Queue<Item> right = items;
+            makeSingleHelper(queue2d, left);
+            makeSingleHelper(queue2d, right);
+        }
+    }
+
+
 
     /**
      * Returns a new queue that contains the items in q1 and q2 in sorted order.
@@ -53,14 +75,41 @@ public class MergeSort {
      */
     private static <Item extends Comparable> Queue<Item> mergeSortedQueues(
             Queue<Item> q1, Queue<Item> q2) {
-        // Your code here!
-        return null;
+        Queue<Item> sortedQueue = new Queue<>();
+        while (!(q1.isEmpty() && q2.isEmpty())) {
+            Item min = getMin(q1, q2);
+            sortedQueue.enqueue(min);
+        }
+        return sortedQueue;
     }
+
 
     /** Returns a Queue that contains the given items sorted from least to greatest. */
     public static <Item extends Comparable> Queue<Item> mergeSort(
             Queue<Item> items) {
-        // Your code here!
-        return items;
+        if (items.isEmpty()) {
+            return null;
+        }
+        Queue<Queue<Item>> queue2d = makeSingleItemQueues(items);
+        while (queue2d.size() > 1) {
+            Queue<Item> q1 = queue2d.dequeue();
+            Queue<Item> q2 = queue2d.dequeue();
+            queue2d.enqueue(mergeSortedQueues(q1, q2));
+        }
+        return queue2d.dequeue();
+    }
+
+
+    /** Lightweight testing for MergeSort by printing. */
+    public static void main(String[] args) {
+        Queue<Integer> numbers = new Queue<>();
+        numbers.enqueue(2);
+        numbers.enqueue(1);
+        numbers.enqueue(6);
+        numbers.enqueue(2);
+        numbers.enqueue(0);
+        numbers.enqueue(8);
+        Queue<Integer> sorted = mergeSort(numbers);
+        System.out.println(sorted);
     }
 }
